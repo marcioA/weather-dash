@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="620" viewBox="0 0 780 620">
+  <defs>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#00000020"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="780" height="620" fill="#eceff1"/>
+
+  <!-- Title bar -->
+  <rect width="780" height="54" fill="#1b5e20"/>
+  <text x="390" y="34" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="bold" fill="white">Schema SQL — lightning_strikes</text>
+
+  <!-- ═══ TABLE CARD ═══ -->
+  <rect x="60" y="76" width="660" height="456" rx="12" fill="white" stroke="#a5d6a7" stroke-width="1.5" filter="url(#shadow)"/>
+
+  <!-- Table header -->
+  <rect x="60" y="76" width="660" height="46" rx="12" fill="#2e7d32"/>
+  <rect x="60" y="104" width="660" height="18" fill="#2e7d32"/>
+  <!-- DB icon -->
+  <ellipse cx="92" cy="99" rx="14" ry="6" fill="none" stroke="white" stroke-width="1.5"/>
+  <line x1="78" y1="99" x2="78" y2="109" stroke="white" stroke-width="1.5"/>
+  <line x1="106" y1="99" x2="106" y2="109" stroke="white" stroke-width="1.5"/>
+  <ellipse cx="92" cy="109" rx="14" ry="6" fill="none" stroke="white" stroke-width="1.5"/>
+  <text x="390" y="104" text-anchor="middle" font-family="Courier New,monospace" font-size="16" font-weight="bold" fill="white">lightning_strikes</text>
+  <text x="680" y="104" text-anchor="end" font-family="Segoe UI,Arial" font-size="11" fill="#c8e6c9">MySQL · InnoDB</text>
+
+  <!-- Column header row -->
+  <rect x="60" y="122" width="660" height="28" fill="#e8f5e9"/>
+  <text x="90"  y="141" font-family="Segoe UI,Arial" font-size="11" font-weight="bold" fill="#2e7d32">COLUNA</text>
+  <text x="290" y="141" font-family="Segoe UI,Arial" font-size="11" font-weight="bold" fill="#2e7d32">TIPO</text>
+  <text x="430" y="141" font-family="Segoe UI,Arial" font-size="11" font-weight="bold" fill="#2e7d32">RESTRIÇÕES</text>
+  <text x="650" y="141" font-family="Segoe UI,Arial" font-size="11" font-weight="bold" fill="#2e7d32">NOTAS</text>
+  <line x1="60" y1="150" x2="720" y2="150" stroke="#c8e6c9" stroke-width="1"/>
+
+  <!-- ── Row helper: y offsets ── -->
+  <!-- Row 1: id  y=150..192 -->
+  <rect x="60" y="150" width="660" height="42" fill="white"/>
+  <line x1="60" y1="192" x2="720" y2="192" stroke="#e8f5e9" stroke-width="1"/>
+  <!-- PK icon -->
+  <rect x="76" y="161" width="18" height="18" rx="3" fill="#ffd600"/>
+  <text x="85" y="174" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#333">PK</text>
+  <text x="112" y="166" font-family="Courier New,monospace" font-size="13" font-weight="bold" fill="#1b5e20">id</text>
+  <text x="112" y="182" font-family="Segoe UI,Arial" font-size="10" fill="#888">identificador único</text>
+  <text x="290" y="170" font-family="Courier New,monospace" font-size="12" fill="#37474f">INT</text>
+  <rect x="430" y="158" width="82" height="18" rx="9" fill="#e3f2fd"/>
+  <text x="471" y="171" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#1565c0">PRIMARY KEY</text>
+  <rect x="520" y="158" width="112" height="18" rx="9" fill="#e8f5e9"/>
+  <text x="576" y="171" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#2e7d32">AUTO_INCREMENT</text>
+
+  <!-- Row 2: latitude -->
+  <rect x="60" y="192" width="660" height="42" fill="#fafafa"/>
+  <line x1="60" y1="234" x2="720" y2="234" stroke="#e8f5e9" stroke-width="1"/>
+  <text x="85" y="208" text-anchor="middle" font-family="Arial" font-size="14" fill="#1565c0">⌖</text>
+  <text x="112" y="208" font-family="Courier New,monospace" font-size="13" font-weight="bold" fill="#1b5e20">latitude</text>
+  <text x="112" y="224" font-family="Segoe UI,Arial" font-size="10" fill="#888">coordenada geográfica (sul negativo)</text>
+  <text x="290" y="212" font-family="Courier New,monospace" font-size="12" fill="#37474f">DECIMAL(10,7)</text>
+  <rect x="430" y="200" width="68" height="18" rx="9" fill="#fce4ec"/>
+  <text x="464" y="213" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#c62828">NOT NULL</text>
+  <rect x="506" y="200" width="56" height="18" rx="9" fill="#e8eaf6"/>
+  <text x="534" y="213" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#283593">INDEX ②</text>
+  <text x="650" y="213" font-family="Segoe UI,Arial" font-size="10" fill="#546e7a">-90.0 a +90.0</text>
+
+  <!-- Row 3: longitude -->
+  <rect x="60" y="234" width="660" height="42" fill="white"/>
+  <line x1="60" y1="276" x2="720" y2="276" stroke="#e8f5e9" stroke-width="1"/>
+  <text x="85" y="250" text-anchor="middle" font-family="Arial" font-size="14" fill="#1565c0">⌖</text>
+  <text x="112" y="250" font-family="Courier New,monospace" font-size="13" font-weight="bold" fill="#1b5e20">longitude</text>
+  <text x="112" y="266" font-family="Segoe UI,Arial" font-size="10" fill="#888">coordenada geográfica (oeste negativo)</text>
+  <text x="290" y="254" font-family="Courier New,monospace" font-size="12" fill="#37474f">DECIMAL(10,7)</text>
+  <rect x="430" y="242" width="68" height="18" rx="9" fill="#fce4ec"/>
+  <text x="464" y="255" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#c62828">NOT NULL</text>
+  <rect x="506" y="242" width="56" height="18" rx="9" fill="#e8eaf6"/>
+  <text x="534" y="255" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#283593">INDEX ②</text>
+  <text x="650" y="255" font-family="Segoe UI,Arial" font-size="10" fill="#546e7a">-180.0 a +180.0</text>
+
+  <!-- Row 4: occurrenceDate -->
+  <rect x="60" y="276" width="660" height="42" fill="#fafafa"/>
+  <line x1="60" y1="318" x2="720" y2="318" stroke="#e8f5e9" stroke-width="1"/>
+  <text x="85" y="292" text-anchor="middle" font-family="Arial" font-size="14" fill="#795548">🕐</text>
+  <text x="112" y="292" font-family="Courier New,monospace" font-size="13" font-weight="bold" fill="#1b5e20">occurrenceDate</text>
+  <text x="112" y="308" font-family="Segoe UI,Arial" font-size="10" fill="#888">data e hora do evento registrado na API</text>
+  <text x="290" y="296" font-family="Courier New,monospace" font-size="12" fill="#37474f">TIMESTAMP</text>
+  <rect x="430" y="284" width="68" height="18" rx="9" fill="#fce4ec"/>
+  <text x="464" y="297" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#c62828">NOT NULL</text>
+  <rect x="506" y="284" width="56" height="18" rx="9" fill="#e8eaf6"/>
+  <text x="534" y="297" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#283593">INDEX ①</text>
+  <text x="650" y="297" font-family="Segoe UI,Arial" font-size="10" fill="#546e7a">UTC · filtrável</text>
+
+  <!-- Row 5: intensity -->
+  <rect x="60" y="318" width="660" height="42" fill="white"/>
+  <line x1="60" y1="360" x2="720" y2="360" stroke="#e8f5e9" stroke-width="1"/>
+  <text x="85" y="334" text-anchor="middle" font-family="Arial" font-size="14" fill="#f57c00">⚡</text>
+  <text x="112" y="334" font-family="Courier New,monospace" font-size="13" font-weight="bold" fill="#1b5e20">intensity</text>
+  <text x="112" y="350" font-family="Segoe UI,Arial" font-size="10" fill="#888">intensidade estimada em kiloamperes (kA)</text>
+  <text x="290" y="338" font-family="Courier New,monospace" font-size="12" fill="#37474f">FLOAT</text>
+  <rect x="430" y="326" width="52" height="18" rx="9" fill="#f3e5f5"/>
+  <text x="456" y="339" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#6a1b9a">NULLABLE</text>
+  <text x="650" y="338" font-family="Segoe UI,Arial" font-size="10" fill="#546e7a">10–60 kA estimado</text>
+
+  <!-- Row 6: source -->
+  <rect x="60" y="360" width="660" height="42" fill="#fafafa"/>
+  <line x1="60" y1="402" x2="720" y2="402" stroke="#e8f5e9" stroke-width="1"/>
+  <text x="85" y="381" text-anchor="middle" font-family="Arial" font-size="12" fill="#546e7a">◎</text>
+  <text x="112" y="376" font-family="Courier New,monospace" font-size="13" font-weight="bold" fill="#1b5e20">source</text>
+  <text x="112" y="392" font-family="Segoe UI,Arial" font-size="10" fill="#888">origem do dado (ex: "OpenWeatherMap")</text>
+  <text x="290" y="380" font-family="Courier New,monospace" font-size="12" fill="#37474f">VARCHAR(100)</text>
+  <rect x="430" y="368" width="52" height="18" rx="9" fill="#f3e5f5"/>
+  <text x="456" y="381" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#6a1b9a">NULLABLE</text>
+
+  <!-- Row 7: description -->
+  <rect x="60" y="402" width="660" height="42" fill="white"/>
+  <line x1="60" y1="444" x2="720" y2="444" stroke="#e8f5e9" stroke-width="1"/>
+  <text x="85" y="423" text-anchor="middle" font-family="Arial" font-size="12" fill="#546e7a">≡</text>
+  <text x="112" y="418" font-family="Courier New,monospace" font-size="13" font-weight="bold" fill="#1b5e20">description</text>
+  <text x="112" y="434" font-family="Segoe UI,Arial" font-size="10" fill="#888">descrição da condição climática + cidade</text>
+  <text x="290" y="422" font-family="Courier New,monospace" font-size="12" fill="#37474f">VARCHAR(255)</text>
+  <rect x="430" y="410" width="52" height="18" rx="9" fill="#f3e5f5"/>
+  <text x="456" y="423" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#6a1b9a">NULLABLE</text>
+  <text x="650" y="422" font-family="Segoe UI,Arial" font-size="10" fill="#546e7a">ex: "São Paulo: trovoada"</text>
+
+  <!-- Row 8: createdAt -->
+  <rect x="60" y="444" width="660" height="42" fill="#fafafa"/>
+  <line x1="60" y1="486" x2="720" y2="486" stroke="#e8f5e9" stroke-width="1"/>
+  <text x="85" y="460" text-anchor="middle" font-family="Arial" font-size="12" fill="#795548">↑</text>
+  <text x="112" y="460" font-family="Courier New,monospace" font-size="13" font-weight="bold" fill="#1b5e20">createdAt</text>
+  <text x="112" y="476" font-family="Segoe UI,Arial" font-size="10" fill="#888">timestamp de inserção no banco</text>
+  <text x="290" y="464" font-family="Courier New,monospace" font-size="12" fill="#37474f">TIMESTAMP</text>
+  <rect x="430" y="452" width="68" height="18" rx="9" fill="#fce4ec"/>
+  <text x="464" y="465" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#c62828">NOT NULL</text>
+  <rect x="506" y="452" width="112" height="18" rx="9" fill="#e8f5e9"/>
+  <text x="562" y="465" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#2e7d32">CURRENT_TIMESTAMP</text>
+
+  <!-- ══ INDEXES FOOTER ══ -->
+  <rect x="60" y="486" width="660" height="46" rx="0" fill="#e8f5e9"/>
+  <rect x="60" y="510" width="660" height="22" rx="0" fill="#e8f5e9"/>
+  <rect x="60" y="522" width="660" height="10" rx="12" fill="#e8f5e9"/>
+  <!-- round bottom corners only -->
+  <rect x="60" y="497" width="660" height="35" rx="0" fill="#e8f5e9"/>
+  <rect x="60" y="519" width="660" height="13" rx="12" fill="#e8f5e9"/>
+  <text x="90"  y="504" font-family="Segoe UI,Arial" font-size="11" font-weight="bold" fill="#2e7d32">Índices:</text>
+  <rect x="140" y="492" width="178" height="18" rx="9" fill="white" stroke="#a5d6a7" stroke-width="1"/>
+  <text x="229" y="505" text-anchor="middle" font-family="Courier New,monospace" font-size="10" fill="#1b5e20">① INDEX (occurrenceDate)</text>
+  <rect x="330" y="492" width="188" height="18" rx="9" fill="white" stroke="#a5d6a7" stroke-width="1"/>
+  <text x="424" y="505" text-anchor="middle" font-family="Courier New,monospace" font-size="10" fill="#1b5e20">② INDEX (latitude, longitude)</text>
+  <text x="90" y="524" font-family="Segoe UI,Arial" font-size="10" fill="#555">Gerado automaticamente pelo TypeORM via decorators  @Index  na entity.</text>
+
+  <!-- ═══ LEGEND / BADGES ═══ -->
+  <rect x="60" y="548" width="660" height="56" rx="8" fill="white" stroke="#cfd8dc" stroke-width="1" filter="url(#shadow)"/>
+  <text x="390" y="566" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="bold" fill="#37474f">Legenda dos badges</text>
+  <!-- PK -->
+  <rect x="80"  y="574" width="18" height="18" rx="3" fill="#ffd600"/>
+  <text x="89"  y="587" text-anchor="middle" font-family="Arial" font-size="10" font-weight="bold" fill="#333">PK</text>
+  <text x="104" y="587" font-family="Segoe UI,Arial" font-size="10" fill="#333">Chave primária</text>
+  <!-- NOT NULL -->
+  <rect x="200" y="574" width="68" height="18" rx="9" fill="#fce4ec"/>
+  <text x="234" y="587" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#c62828">NOT NULL</text>
+  <text x="274" y="587" font-family="Segoe UI,Arial" font-size="10" fill="#333">Obrigatório</text>
+  <!-- NULLABLE -->
+  <rect x="350" y="574" width="52" height="18" rx="9" fill="#f3e5f5"/>
+  <text x="376" y="587" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#6a1b9a">NULLABLE</text>
+  <text x="408" y="587" font-family="Segoe UI,Arial" font-size="10" fill="#333">Opcional</text>
+  <!-- INDEX -->
+  <rect x="480" y="574" width="56" height="18" rx="9" fill="#e8eaf6"/>
+  <text x="508" y="587" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" font-weight="bold" fill="#283593">INDEX ①</text>
+  <text x="542" y="587" font-family="Segoe UI,Arial" font-size="10" fill="#333">Indexado</text>
+</svg>

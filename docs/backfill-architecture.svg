@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7b1fa2"/>
+    </marker>
+    <marker id="arr-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2e7d32"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e65100"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="640" fill="#eaeff7"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="960" height="50" fill="#1a237e"/>
+  <text x="480" y="32" text-anchor="middle" font-size="17" font-weight="bold" fill="white">Arquitetura do Sistema — Weather Dash · Backfill Histórico</text>
+
+  <!-- ── HTTP CLIENT ── -->
+  <rect x="310" y="62" width="340" height="88" rx="8" fill="#7b1fa2" stroke="#4a0072" stroke-width="1.5"/>
+  <text x="480" y="83" text-anchor="middle" font-size="13" font-weight="bold" fill="white">HTTP Client</text>
+  <line x1="310" y1="90" x2="650" y2="90" stroke="#9c27b0" stroke-width="1"/>
+  <text x="480" y="107" text-anchor="middle" font-size="11" fill="#e1bee7">curl / Postman / Frontend</text>
+  <text x="480" y="122" text-anchor="middle" font-size="11" fill="#e1bee7">POST /lightning/backfill · { startDate, endDate }</text>
+  <text x="480" y="137" text-anchor="middle" font-size="11" fill="#e1bee7">GET /lightning · (consulta os resultados salvos)</text>
+
+  <!-- Arrow: HTTP Client → Controller -->
+  <line x1="480" y1="150" x2="480" y2="182" stroke="#7b1fa2" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <text x="488" y="169" font-size="10" fill="#7b1fa2">request</text>
+
+  <!-- ── NESTJS APPLICATION (dashed box) ── -->
+  <rect x="75" y="186" width="810" height="278" rx="6" fill="#dce8f5" stroke="#1565c0" stroke-width="2" stroke-dasharray="9,4"/>
+  <text x="95" y="204" font-size="11" font-weight="bold" fill="#1565c0">NestJS Application  (src/lightning/)</text>
+
+  <!-- Controller Box -->
+  <rect x="115" y="210" width="730" height="78" rx="5" fill="#1565c0" stroke="#0d47a1" stroke-width="1.5"/>
+  <text x="480" y="229" text-anchor="middle" font-size="13" font-weight="bold" fill="white">LightningController</text>
+  <line x1="115" y1="236" x2="845" y2="236" stroke="#1976d2" stroke-width="1"/>
+  <line x1="480" y1="236" x2="480" y2="288" stroke="#90caf9" stroke-width="1" stroke-dasharray="4,2"/>
+  <!-- Left: @Post -->
+  <text x="297" y="253" text-anchor="middle" font-size="11" font-weight="bold" fill="#bbdefb">@Post('backfill')</text>
+  <text x="297" y="268" text-anchor="middle" font-size="10" fill="#e3f2fd">Recebe { startDate, endDate }</text>
+  <text x="297" y="281" text-anchor="middle" font-size="10" fill="#e3f2fd">Chama service.backfill(dto)</text>
+  <!-- Right: @Get -->
+  <text x="663" y="253" text-anchor="middle" font-size="11" font-weight="bold" fill="#bbdefb">@Get()</text>
+  <text x="663" y="268" text-anchor="middle" font-size="10" fill="#e3f2fd">Retorna registros salvos</text>
+  <text x="663" y="281" text-anchor="middle" font-size="10" fill="#e3f2fd">Filtra por data / bounding box</text>
+
+  <!-- Arrow: Controller → Service -->
+  <line x1="480" y1="288" x2="480" y2="313" stroke="#555" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Service Box -->
+  <rect x="115" y="316" width="730" height="135" rx="5" fill="#1565c0" stroke="#0d47a1" stroke-width="1.5"/>
+  <text x="480" y="335" text-anchor="middle" font-size="13" font-weight="bold" fill="white">LightningService</text>
+  <line x1="115" y1="342" x2="845" y2="342" stroke="#1976d2" stroke-width="1"/>
+  <line x1="480" y1="342" x2="480" y2="451" stroke="#90caf9" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <!-- Left column: backfill() -->
+  <text x="297" y="359" text-anchor="middle" font-size="11" font-weight="bold" fill="#bbdefb">backfill()</text>
+  <text x="130" y="376" font-size="10" fill="#e3f2fd">▸  Itera 15 cidades sequencialmente</text>
+  <text x="130" y="391" font-size="10" fill="#e3f2fd">▸  500 ms de intervalo entre cidades</text>
+  <text x="130" y="406" font-size="10" fill="#e3f2fd">▸  Captura erros por cidade (não aborta)</text>
+  <text x="130" y="421" font-size="10" fill="#e3f2fd">▸  Acumula e retorna totais ao controller</text>
+  <!-- Loop badge -->
+  <rect x="130" y="430" width="120" height="16" rx="8" fill="#0d47a1"/>
+  <text x="190" y="442" text-anchor="middle" font-size="9" fill="#90caf9">⟳  loop · 15 cidades</text>
+
+  <!-- Right column: backfillPoint() -->
+  <text x="663" y="359" text-anchor="middle" font-size="11" font-weight="bold" fill="#bbdefb">backfillPoint()</text>
+  <text x="492" y="376" font-size="10" fill="#e3f2fd">▸  Chama Open-Meteo com lat, lon, datas</text>
+  <text x="492" y="391" font-size="10" fill="#e3f2fd">▸  Recebe dados horários (weather_code[])</text>
+  <text x="492" y="406" font-size="10" fill="#e3f2fd">▸  Mapeia código WMO → intensidade (kA)</text>
+  <text x="492" y="421" font-size="10" fill="#e3f2fd">▸  INSERT IGNORE em chunks de 500 linhas</text>
+  <!-- Chunk badge -->
+  <rect x="492" y="430" width="138" height="16" rx="8" fill="#0d47a1"/>
+  <text x="561" y="442" text-anchor="middle" font-size="9" fill="#90caf9">📦  chunk · 500 registros/vez</text>
+
+  <!-- ── ARROWS: Service ↔ Open-Meteo ── -->
+  <!-- Service → Open-Meteo (request, dashed orange) -->
+  <line x1="230" y1="451" x2="160" y2="497" stroke="#e65100" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="148" y="474" font-size="9" fill="#e65100" transform="rotate(-38,185,471)">GET /v1/archive</text>
+
+  <!-- Open-Meteo → Service (response, dashed orange) -->
+  <line x1="290" y1="497" x2="355" y2="451" stroke="#e65100" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="296" y="492" font-size="9" fill="#e65100">JSON horário</text>
+
+  <!-- ── ARROWS: Service ↔ MySQL ── -->
+  <!-- Service → MySQL (solid green) -->
+  <line x1="720" y1="451" x2="790" y2="497" stroke="#2e7d32" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="718" y="479" font-size="9" fill="#2e7d32">INSERT IGNORE</text>
+
+  <!-- MySQL → Service (dashed green) -->
+  <line x1="670" y1="497" x2="605" y2="451" stroke="#2e7d32" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+  <text x="594" y="493" font-size="9" fill="#2e7d32">OK / ignored</text>
+
+  <!-- ── JSON response arrow (right side, back to client) ── -->
+  <line x1="845" y1="252" x2="878" y2="252" stroke="#555" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="878" y1="252" x2="878" y2="106" stroke="#555" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="878" y1="106" x2="652" y2="106" stroke="#555" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-gray)"/>
+  <text x="888" y="190" font-size="9" fill="#555" transform="rotate(90,885,185)">JSON response</text>
+
+  <!-- ── OPEN-METEO BOX ── -->
+  <rect x="28" y="503" width="272" height="122" rx="8" fill="#e65100" stroke="#bf360c" stroke-width="1.5"/>
+  <text x="164" y="523" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Open-Meteo</text>
+  <text x="164" y="538" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffccbc">Archive API · Gratuito · Sem chave de API</text>
+  <line x1="28" y1="544" x2="300" y2="544" stroke="#bf360c" stroke-width="1"/>
+  <text x="42" y="559" font-size="10" fill="#fff3e0">GET /v1/archive?hourly=weather_code</text>
+  <text x="42" y="574" font-size="10" fill="#fff3e0">ERA5 Reanalysis · 1940 até hoje</text>
+  <text x="42" y="589" font-size="10" fill="#fff3e0">Granularidade horária por cidade</text>
+  <text x="42" y="604" font-size="10" fill="#fff3e0">Códigos WMO 0–99 · todos salvos</text>
+  <text x="42" y="619" font-size="10" fill="#fff3e0">1 request por vez + 500 ms de delay</text>
+
+  <!-- ── MYSQL BOX ── -->
+  <rect x="660" y="503" width="272" height="122" rx="8" fill="#2e7d32" stroke="#1b5e20" stroke-width="1.5"/>
+  <text x="796" y="523" text-anchor="middle" font-size="13" font-weight="bold" fill="white">MySQL Database</text>
+  <text x="796" y="538" text-anchor="middle" font-size="10" font-weight="bold" fill="#c8e6c9">lightning_strikes</text>
+  <line x1="660" y1="544" x2="932" y2="544" stroke="#1b5e20" stroke-width="1"/>
+  <text x="674" y="559" font-size="10" fill="#e8f5e9">TypeORM · synchronize: true</text>
+  <text x="674" y="574" font-size="10" fill="#e8f5e9">INSERT IGNORE · chunks de 500 linhas</text>
+  <text x="674" y="589" font-size="10" fill="#e8f5e9">UNIQUE (latitude, longitude, occurrenceDate)</text>
+  <text x="674" y="604" font-size="10" fill="#e8f5e9">Duplicatas ignoradas automaticamente</text>
+  <text x="674" y="619" font-size="10" fill="#e8f5e9">Re-execução segura ✓</text>
+
+  <!-- ── LEGEND BOX ── -->
+  <rect x="328" y="503" width="304" height="122" rx="6" fill="white" stroke="#bbb" stroke-width="1.5"/>
+  <text x="480" y="522" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">Legenda</text>
+  <line x1="328" y1="528" x2="632" y2="528" stroke="#ccc" stroke-width="1"/>
+
+  <line x1="346" y1="545" x2="388" y2="545" stroke="#7b1fa2" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <text x="396" y="549" font-size="10" fill="#333">Requisição HTTP (sólida)</text>
+
+  <line x1="346" y1="565" x2="388" y2="565" stroke="#2e7d32" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="396" y="569" font-size="10" fill="#333">INSERT SQL ao banco</text>
+
+  <line x1="346" y1="585" x2="388" y2="585" stroke="#e65100" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="396" y="589" font-size="10" fill="#333">Chamada API externa / retorno</text>
+
+  <line x1="346" y1="605" x2="388" y2="605" stroke="#2e7d32" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+  <text x="396" y="609" font-size="10" fill="#333">Retorno DB (OK / ignored)</text>
+
+  <line x1="346" y1="617" x2="388" y2="617" stroke="#555" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-gray)"/>
+  <text x="396" y="621" font-size="10" fill="#333">Resposta JSON ao cliente</text>
+</svg>

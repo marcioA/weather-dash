@@ -1,0 +1,305 @@
+{
+  "meta": {
+    "purpose": "Especificação completa para geração de frontend do projeto Weather Dash",
+    "instructions": "Crie um frontend completo usando apenas HTML, CSS e JavaScript vanilla. Use PHP como proxy reverso para ocultar o endereço e porta do backend NestJS. Gere todos os arquivos listados em file_structure. O design deve ser moderno, responsivo, dark/light mode opcional, com foco em dados meteorológicos do Brasil.",
+    "language": "pt-BR",
+    "output": "Gere cada arquivo completo, sem omissões, pronto para uso em produção."
+  },
+
+  "project": {
+    "name": "Weather Dash",
+    "description": "Dashboard meteorológico que exibe eventos climáticos históricos e em tempo real de 15 cidades brasileiras monitoradas. Dados coletados via Open-Meteo (histórico) e OpenWeatherMap (tempo real) e armazenados em MySQL via NestJS.",
+    "backend_url_internal": "https://<seu-projeto>.vercel.app",
+    "backend_url_comment": "Esta URL nunca deve aparecer no JavaScript do frontend. Toda comunicação passa pelo proxy PHP. Em desenvolvimento local use http://localhost:3000."
+  },
+
+  "tech_stack": {
+    "frontend": ["HTML5", "CSS3", "JavaScript ES2022 (vanilla, sem frameworks)"],
+    "proxy": "PHP 8.1+",
+    "map_library": "Leaflet.js 1.9 (CDN)",
+    "chart_library": "Chart.js 4 (CDN)",
+    "icons": "Nenhuma biblioteca — usar emojis ou SVG inline para ícones de clima"
+  },
+
+  "design_system": {
+    "palette": {
+      "primary": "#1a237e",
+      "primary_light": "#1565c0",
+      "accent": "#7b1fa2",
+      "success": "#2e7d32",
+      "warning": "#e65100",
+      "danger": "#c62828",
+      "background": "#0f172a",
+      "surface": "#1e293b",
+      "surface_2": "#334155",
+      "text_primary": "#f1f5f9",
+      "text_secondary": "#94a3b8",
+      "border": "#334155"
+    },
+    "typography": {
+      "font_family": "Inter, system-ui, sans-serif",
+      "font_cdn": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    },
+    "style": "Dark mode por padrão. Cards com bordas suaves (border-radius: 12px). Sidebar fixa à esquerda. Header fixo no topo. Grid responsivo no conteúdo principal."
+  },
+
+  "monitoring_cities": [
+    { "name": "São Paulo",      "lat": -23.5505, "lon": -46.6333 },
+    { "name": "Rio de Janeiro", "lat": -22.9068, "lon": -43.1729 },
+    { "name": "Belo Horizonte", "lat": -19.9167, "lon": -43.9345 },
+    { "name": "Brasília",       "lat": -15.7801, "lon": -47.9292 },
+    { "name": "Salvador",       "lat": -12.9714, "lon": -38.5014 },
+    { "name": "Curitiba",       "lat": -25.4284, "lon": -49.2733 },
+    { "name": "Manaus",         "lat":  -3.1190, "lon": -60.0217 },
+    { "name": "Belém",          "lat":  -1.4558, "lon": -48.4902 },
+    { "name": "Goiânia",        "lat": -16.6869, "lon": -49.2648 },
+    { "name": "Campo Grande",   "lat": -20.4697, "lon": -54.6201 },
+    { "name": "Cuiabá",         "lat": -15.6010, "lon": -56.0974 },
+    { "name": "Porto Alegre",   "lat": -30.0346, "lon": -51.2177 },
+    { "name": "Recife",         "lat":  -8.0539, "lon": -34.8811 },
+    { "name": "Fortaleza",      "lat":  -3.7172, "lon": -38.5433 },
+    { "name": "Palmas",         "lat": -10.2491, "lon": -48.3243 }
+  ],
+
+  "weather_code_map": {
+    "comment": "Códigos WMO (Open-Meteo) e códigos OpenWeatherMap (2xx). Use para exibir label, emoji e cor no frontend.",
+    "wmo": {
+      "0":  { "label": "Céu limpo",            "emoji": "☀️",  "color": "#f59e0b", "severity": "none" },
+      "1":  { "label": "Predominantemente limpo","emoji": "🌤️", "color": "#f59e0b", "severity": "none" },
+      "2":  { "label": "Parcialmente nublado",  "emoji": "⛅",  "color": "#94a3b8", "severity": "none" },
+      "3":  { "label": "Nublado",               "emoji": "☁️",  "color": "#64748b", "severity": "none" },
+      "45": { "label": "Névoa",                 "emoji": "🌫️", "color": "#94a3b8", "severity": "low" },
+      "48": { "label": "Névoa com geada",        "emoji": "🌫️", "color": "#94a3b8", "severity": "low" },
+      "51": { "label": "Chuvisco leve",          "emoji": "🌦️", "color": "#38bdf8", "severity": "low" },
+      "53": { "label": "Chuvisco moderado",      "emoji": "🌦️", "color": "#38bdf8", "severity": "low" },
+      "55": { "label": "Chuvisco intenso",       "emoji": "🌧️", "color": "#0ea5e9", "severity": "medium" },
+      "61": { "label": "Chuva fraca",            "emoji": "🌧️", "color": "#0284c7", "severity": "low" },
+      "63": { "label": "Chuva moderada",         "emoji": "🌧️", "color": "#0284c7", "severity": "medium" },
+      "65": { "label": "Chuva forte",            "emoji": "🌧️", "color": "#0369a1", "severity": "high" },
+      "71": { "label": "Neve fraca",             "emoji": "🌨️", "color": "#bae6fd", "severity": "medium" },
+      "73": { "label": "Neve moderada",          "emoji": "❄️",  "color": "#bae6fd", "severity": "high" },
+      "75": { "label": "Neve forte",             "emoji": "❄️",  "color": "#bae6fd", "severity": "high" },
+      "80": { "label": "Pancadas de chuva",      "emoji": "🌦️", "color": "#0ea5e9", "severity": "medium" },
+      "81": { "label": "Pancadas moderadas",     "emoji": "🌧️", "color": "#0284c7", "severity": "medium" },
+      "82": { "label": "Pancadas violentas",     "emoji": "⛈️",  "color": "#7c3aed", "severity": "high" },
+      "85": { "label": "Neve em pancadas",       "emoji": "🌨️", "color": "#bae6fd", "severity": "high" },
+      "86": { "label": "Neve em pancadas forte", "emoji": "❄️",  "color": "#bae6fd", "severity": "high" },
+      "95": { "label": "Trovoada",               "emoji": "⛈️",  "color": "#7c3aed", "severity": "critical" },
+      "96": { "label": "Trovoada com granizo",   "emoji": "⛈️",  "color": "#6d28d9", "severity": "critical" },
+      "99": { "label": "Trovoada c/ granizo forte","emoji": "⛈️","color": "#4c1d95", "severity": "critical" }
+    },
+    "openweathermap": {
+      "comment": "Códigos 2xx são trovoadas vindas do fetch em tempo real (OpenWeatherMap)",
+      "200": { "label": "Trovoada com chuva fraca",    "emoji": "⛈️", "color": "#7c3aed", "severity": "critical" },
+      "201": { "label": "Trovoada com chuva",          "emoji": "⛈️", "color": "#7c3aed", "severity": "critical" },
+      "202": { "label": "Trovoada com chuva forte",    "emoji": "⛈️", "color": "#6d28d9", "severity": "critical" },
+      "210": { "label": "Trovoada fraca",              "emoji": "⛈️", "color": "#7c3aed", "severity": "critical" },
+      "211": { "label": "Trovoada",                    "emoji": "⛈️", "color": "#7c3aed", "severity": "critical" },
+      "212": { "label": "Trovoada forte",              "emoji": "⛈️", "color": "#4c1d95", "severity": "critical" },
+      "221": { "label": "Trovoada irregular",          "emoji": "⛈️", "color": "#6d28d9", "severity": "critical" },
+      "230": { "label": "Trovoada com garoa fraca",    "emoji": "⛈️", "color": "#7c3aed", "severity": "critical" },
+      "231": { "label": "Trovoada com garoa",          "emoji": "⛈️", "color": "#7c3aed", "severity": "critical" },
+      "232": { "label": "Trovoada com garoa forte",    "emoji": "⛈️", "color": "#6d28d9", "severity": "critical" }
+    },
+    "severity_colors": {
+      "none":     "#64748b",
+      "low":      "#38bdf8",
+      "medium":   "#f59e0b",
+      "high":     "#ef4444",
+      "critical": "#7c3aed"
+    }
+  },
+
+  "backend_api": {
+    "base_url": "http://localhost:3000",
+    "endpoints": [
+      {
+        "id": "list_events",
+        "method": "GET",
+        "path": "/lightning",
+        "description": "Lista eventos climáticos armazenados com filtros opcionais",
+        "query_params": {
+          "startDate": { "type": "string", "format": "ISO 8601", "example": "2024-01-01T00:00:00Z", "required": false },
+          "endDate":   { "type": "string", "format": "ISO 8601", "example": "2024-12-31T23:59:59Z", "required": false },
+          "minLat":    { "type": "number", "example": -33.75, "required": false },
+          "maxLat":    { "type": "number", "example": 5.27,   "required": false },
+          "minLon":    { "type": "number", "example": -73.98, "required": false },
+          "maxLon":    { "type": "number", "example": -34.73, "required": false }
+        },
+        "response_example": [
+          {
+            "id": 1,
+            "latitude": -23.5505,
+            "longitude": -46.6333,
+            "occurrenceDate": "2024-06-15T14:00:00.000Z",
+            "weatherCode": 95,
+            "intensity": 25.0,
+            "source": "Open-Meteo",
+            "description": "São Paulo",
+            "createdAt": "2026-05-24T17:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "fetch_realtime",
+        "method": "POST",
+        "path": "/lightning/fetch",
+        "description": "Dispara coleta de dados em tempo real via OpenWeatherMap (15 cidades)",
+        "request_body": null,
+        "response_example": {
+          "message": "Coleta concluída",
+          "pontosConsultados": 15,
+          "eventosArmazenados": 3
+        }
+      },
+      {
+        "id": "backfill",
+        "method": "POST",
+        "path": "/lightning/backfill",
+        "description": "Preenche histórico via Open-Meteo para um intervalo de datas",
+        "request_body": {
+          "startDate": { "type": "string", "format": "YYYY-MM-DD", "example": "2024-01-01", "required": true },
+          "endDate":   { "type": "string", "format": "YYYY-MM-DD", "example": "2024-12-31", "required": true }
+        },
+        "response_example": {
+          "message": "Backfill concluído",
+          "horasProcessadas": 131400,
+          "eventosArmazenados": 131400
+        }
+      }
+    ]
+  },
+
+  "php_proxy": {
+    "description": "Arquivo único api.php que recebe todas as chamadas do frontend e as encaminha ao backend NestJS. O frontend nunca conhece o endereço real do backend.",
+    "file": "api.php",
+    "pattern": "O JS envia para /api.php?endpoint=list_events&startDate=...&endDate=... e o PHP monta a URL real e faz a requisição com cURL.",
+    "endpoints_map": {
+      "list_events":    { "method": "GET",  "backend_path": "/lightning" },
+      "fetch_realtime": { "method": "POST", "backend_path": "/lightning/fetch" },
+      "backfill":       { "method": "POST", "backend_path": "/lightning/backfill" }
+    },
+    "security": [
+      "Validar que o parâmetro 'endpoint' está na lista permitida (whitelist)",
+      "Sanitizar todos os query params antes de repassar",
+      "Retornar sempre Content-Type: application/json",
+      "Em caso de erro do backend, retornar { error: mensagem } com status HTTP correspondente",
+      "Nunca expor a URL do backend em mensagens de erro"
+    ],
+    "php_curl_hints": [
+      "Usar CURLOPT_TIMEOUT de 120 segundos (backfill pode demorar)",
+      "Repassar o status HTTP do backend na resposta",
+      "Suportar GET (query string) e POST (body JSON)"
+    ]
+  },
+
+  "pages": [
+    {
+      "id": "dashboard",
+      "file": "index.html",
+      "title": "Dashboard — Weather Dash",
+      "sections": [
+        {
+          "id": "kpi_cards",
+          "label": "Cards de Resumo",
+          "description": "4 cards no topo: Total de Eventos, Eventos de Trovoada (weatherCode >= 95 ou 200-232), Última Atualização, Cidades Monitoradas (sempre 15)",
+          "data_source": "Calculado a partir da resposta de list_events"
+        },
+        {
+          "id": "map",
+          "label": "Mapa do Brasil",
+          "description": "Mapa Leaflet centralizado no Brasil (lat: -15, lon: -53, zoom: 4). Um marcador por cidade. Cor do marcador baseada no weatherCode mais recente daquela cidade (usar severity_colors). Popup ao clicar mostra: nome da cidade, weatherCode label+emoji, data do último evento, intensidade em kA se disponível.",
+          "library": "Leaflet.js",
+          "tile_layer": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        },
+        {
+          "id": "chart_timeline",
+          "label": "Linha do Tempo de Eventos",
+          "description": "Gráfico de barras (Chart.js) agrupando eventos por dia. Eixo X: data. Eixo Y: quantidade de eventos. Barras coloridas por severidade dominante do dia. Exibe os últimos 30 dias por padrão.",
+          "library": "Chart.js"
+        },
+        {
+          "id": "chart_by_city",
+          "label": "Eventos por Cidade",
+          "description": "Gráfico de barras horizontais com total de eventos por cidade no período filtrado.",
+          "library": "Chart.js"
+        },
+        {
+          "id": "events_table",
+          "label": "Tabela de Eventos",
+          "description": "Tabela paginada (50 por página) com colunas: Data/Hora, Cidade (inferida por proximidade das coordenadas), Condição (emoji + label do weatherCode), Intensidade (kA ou — se null), Fonte (badge: Open-Meteo ou OpenWeatherMap). Ordenável por Data.",
+          "pagination": 50
+        }
+      ]
+    }
+  ],
+
+  "components": [
+    {
+      "id": "sidebar",
+      "description": "Sidebar fixa à esquerda com logo 'Weather Dash', links de navegação (Dashboard, Mapa, Histórico, Configurações — apenas Dashboard é funcional), indicador de status da API (verde/vermelho)"
+    },
+    {
+      "id": "header",
+      "description": "Header fixo com título da página atual, filtros de data (startDate / endDate com date pickers), botão 'Atualizar Agora' (chama fetch_realtime via proxy) e botão 'Backfill' (abre modal)"
+    },
+    {
+      "id": "filter_bar",
+      "description": "Barra de filtros abaixo do header: date range picker, select de cidade (All + 15 cidades), select de tipo de condição (Todos / Trovoada / Chuva / Neve / Céu limpo). Ao alterar, refaz a chamada para list_events e atualiza todos os componentes."
+    },
+    {
+      "id": "backfill_modal",
+      "description": "Modal com dois campos de data (startDate, endDate no formato YYYY-MM-DD), botão 'Iniciar Backfill', progress bar indeterminada enquanto aguarda (pode demorar minutos), resultado exibido após conclusão (horasProcessadas e eventosArmazenados)."
+    },
+    {
+      "id": "toast_notifications",
+      "description": "Notificações temporárias (3 segundos) no canto inferior direito para feedback de ações: sucesso, erro, info."
+    }
+  ],
+
+  "data_model": {
+    "LightningStrike": {
+      "id":             { "type": "number" },
+      "latitude":       { "type": "number", "example": -23.5505 },
+      "longitude":      { "type": "number", "example": -46.6333 },
+      "occurrenceDate": { "type": "string", "format": "ISO 8601" },
+      "weatherCode":    { "type": "number", "comment": "Código WMO (Open-Meteo) ou código OpenWeatherMap (2xx)" },
+      "intensity":      { "type": "number | null", "unit": "kA" },
+      "source":         { "type": "string | null", "values": ["Open-Meteo", "OpenWeatherMap"] },
+      "description":    { "type": "string | null", "comment": "Nome da cidade e detalhes" },
+      "createdAt":      { "type": "string", "format": "ISO 8601" }
+    },
+    "helper_functions_needed": [
+      "getWeatherInfo(code) → { label, emoji, color, severity } — busca no weather_code_map",
+      "getCityName(lat, lon) → string — encontra a cidade mais próxima pelo menor dist. Euclidiana entre monitoring_cities",
+      "formatDate(isoString) → 'dd/mm/yyyy HH:MM' em pt-BR",
+      "groupByDay(events) → { [date: string]: LightningStrike[] }",
+      "groupByCity(events) → { [cityName: string]: LightningStrike[] }"
+    ]
+  },
+
+  "file_structure": {
+    "root": [
+      { "file": "index.html",   "description": "Página principal do dashboard" },
+      { "file": "api.php",      "description": "Proxy reverso PHP — único ponto de contato com o backend NestJS" },
+      { "file": "css/style.css","description": "Todos os estilos (dark theme, layout, componentes, responsivo)" },
+      { "file": "js/app.js",    "description": "Inicialização, roteamento de estado, orquestra todos os módulos" },
+      { "file": "js/api.js",    "description": "Camada de acesso a dados — todas as chamadas fetch() apontam para api.php" },
+      { "file": "js/map.js",    "description": "Lógica do mapa Leaflet — marcadores, popups, atualização de cores" },
+      { "file": "js/charts.js", "description": "Criação e atualização dos gráficos Chart.js" },
+      { "file": "js/table.js",  "description": "Tabela paginada de eventos com ordenação" },
+      { "file": "js/utils.js",  "description": "Funções utilitárias: getWeatherInfo, getCityName, formatDate, etc." }
+    ]
+  },
+
+  "ux_rules": [
+    "Ao carregar a página, buscar eventos dos últimos 30 dias automaticamente",
+    "Mostrar skeleton loader enquanto os dados carregam",
+    "Se a resposta vier vazia, exibir estado vazio com mensagem amigável e emoji",
+    "O mapa deve atualizar os marcadores sempre que os filtros mudarem",
+    "Eventos de trovoada (severity: critical) devem ter destaque visual na tabela (linha com fundo roxo sutil)",
+    "Botão 'Atualizar Agora' deve ficar desabilitado durante a requisição e mostrar spinner",
+    "Todos os valores de intensidade null devem ser exibidos como '—' (travessão)",
+    "Datas devem sempre ser exibidas no fuso horário de Brasília (America/Sao_Paulo)"
+  ]
+}
