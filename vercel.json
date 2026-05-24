@@ -14,7 +14,7 @@
   "crons": [
     {
       "path": "/lightning/fetch",
-      "schedule": "*/10 * * * *"
+      "schedule": "0 0 * * *"
     }
   ],
   "env": {
